@@ -3,6 +3,11 @@ import { DataTypes } from "#database/database.sequelize.js";
 const responseField = {
     id: {},
     organization_id: {},
+    organization_name: {
+        relation: true,
+        searchable: true,
+        value: 'organization.name'
+    },
     code: {},
     sku: {},
     name: {},
@@ -62,6 +67,15 @@ export default {
             }
 
         },
+
+        relations: [
+            {
+                modelName: 'organizations',
+                type: 'belongsTo',
+                as: 'organization',
+                foreignKey: 'organization_id'
+            },
+        ],
 
         options: {
             tableName: 'inv_items',

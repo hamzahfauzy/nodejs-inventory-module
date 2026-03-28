@@ -34,13 +34,23 @@ export default {
             value: {
                 type: DataTypes.DECIMAL(18,6),
                 allowNull: false
+            },
+
+            created_at: {
+                type: DataTypes.DATE
+            },
+
+            updated_at: {
+                type: DataTypes.DATE
             }
 
         },
 
         options: {
             tableName: 'inv_item_conversions',
-            timestamps: false
+            timestamps: false,
+            createdAt: 'created_at',
+            updatedAt: 'updated_at'
         }
     },
 
