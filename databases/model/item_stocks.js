@@ -35,7 +35,7 @@ export default {
             },
 
             amount: {
-                type: DataTypes.DECIMAL(18,4),
+                type: DataTypes.INTEGER,
                 allowNull: false
             },
 

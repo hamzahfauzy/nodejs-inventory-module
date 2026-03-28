@@ -41,7 +41,7 @@ CREATE TABLE inv_item_conversions (
 CREATE TABLE inv_item_stocks (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     item_id BIGINT UNSIGNED NOT NULL,
-    amount DECIMAL(18,4) NOT NULL,
+    amount INT NOT NULL,
     record_type VARCHAR(50) NOT NULL,
     ref_name VARCHAR(100) NULL,
     ref_id BIGINT UNSIGNED NULL,

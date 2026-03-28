@@ -27,7 +27,14 @@ export default {
               term: "search",
               response: { id: "id", text: "name" },
               url: appUrl + "/table/inv_items",
+              initList: {
+                  url: '/table/inv_items',
+                  key: 'item_id',
+                  response: {id: 'id', text: 'name'},
+              },
             },
+            defaultValue: 'item_id',
+            defaultFrom: 'queryParam'
           },
           {
             name: "amount",
@@ -38,7 +45,12 @@ export default {
           {
             name: "record_type",
             label: "Record Type",
-            type: "text",
+            type: "select",
+            defaultValue: 'IN',
+            options: [
+              {label: 'IN', value: 'IN'},
+              {label: 'OUT', value: 'OUT'},
+            ],
             className: "col-md-6",
           },
           {

@@ -38,6 +38,10 @@ export default {
       },
 
       actions: [
+        { 
+          label: 'Stock', type: 'link', icon: 'eye', permission: "inv_item_stocks.list", title: 'View Stock',
+          to: {path: '/page/inventory/items/stocks', query: {filters: {item_id: 'id'}}}, 
+        },
         {
           label: "Detail",
           type: "view",

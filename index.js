@@ -5,6 +5,8 @@ import inventory_procurement from "./pages/inventory_procurement.js";
 import inv_items from "./databases/model/items.js";
 import inv_item_stocks from "./databases/model/item_stocks.js";
 import menu from "./config/menu.js";
+import { eventBus } from "#libs/eventBus.js";
+import { getModel } from "#database/database.registry.js";
 
 export default {
   // context {register, ui, db}
@@ -22,5 +24,38 @@ export default {
       "inventory",
       "app/inventory/databases/migrations",
     );
+
+    eventBus.on('trx_invoices.beforeCreate', async context => {
+      const itemModel = getModel('inv_items')
+
+      const items = context.payload.items
+
+      // 1️⃣ Ambil semua ref_id unik
+      const ids = [...new Set(items.map(item => item.ref_id))]
+
+      // 2️⃣ Query sekali pakai IN
+      const dbItems = await itemModel.findAll({
+          where: {
+              id: ids
+          }
+      })
+
+      // 3️⃣ Buat lookup map supaya cepat
+      const itemMap = {}
+
+      for (const dbItem of dbItems) {
+          itemMap[dbItem.id] = dbItem
+      }
+
+      // 4️⃣ Inject ke payload
+      for (const item of items) {
+          const dbItem = itemMap[item.ref_id]
+
+          if (dbItem) {
+              item.name = dbItem.name
+              item.ref_name = 'inv_items'
+          }
+      }
+  })
   },
 };
