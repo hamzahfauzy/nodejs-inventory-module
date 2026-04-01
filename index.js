@@ -56,6 +56,6 @@ export default {
               item.ref_name = 'inv_items'
           }
       }
-  })
+    })
   },
 };
